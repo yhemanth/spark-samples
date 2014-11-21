@@ -1,4 +1,4 @@
-package com.yhemanth.spark;
+package com.dsinpractice.spark;
 
 import org.apache.spark.api.java.*;
 import org.apache.spark.api.java.function.Function;

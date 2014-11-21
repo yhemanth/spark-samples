@@ -1,4 +1,4 @@
-package com.yhemanth.spark;
+package com.dsinpractice.spark;
 
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
