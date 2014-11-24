@@ -16,19 +16,14 @@
 
   <dependencies>
       <dependency>
-        <groupId>org.apache.spark</groupId>
-        <artifactId>spark-streaming_2.9.3</artifactId>
-        <version>0.8.1-incubating</version>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.kafka</groupId>
-          <artifactId>kafka</artifactId>
-          <version>0.7.2-spark</version>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-core_2.10</artifactId>
+          <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>3.8.1</version>
+        <version>4.11</version>
         <scope>test</scope>
       </dependency>
   </dependencies>
@@ -40,7 +35,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.dsinpractice.spark.KafkaStreamingSample</mainClass>
+                            <mainClass></mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
