@@ -13,7 +13,6 @@ import java.io.Serializable;
 public class UserJourneyCreator implements Serializable {
 
     private String appName;
-    private String masterUrl;
     private String inputPath;
     private String outputPath;
 
