@@ -1,8 +1,5 @@
 package com.dsinpractice.spark.logparsing;
 
-import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -14,21 +11,30 @@ import java.io.Serializable;
 
 public class UserJourneyCreator implements Serializable {
 
+    private String appName;
+    private String masterUrl;
     private String inputPath;
     private String outputPath;
 
-    public UserJourneyCreator(String inputPath, String outputPath) {
-        this.inputPath = inputPath;
-        this.outputPath = outputPath;
+    public UserJourneyCreator(String[] args) {
+        this.masterUrl = args[0];
+        this.appName = "User journey creator";
+        this.inputPath = args[1];
+        this.outputPath = args[2];
     }
 
     public static void main(String[] args) {
-        UserJourneyCreator userJourneyCreator = new UserJourneyCreator(args[0], args[1]);
+        if (args.length < 3) {
+            System.out.println("Usage: java " +
+                    UserJourneyCreator.class.getName() + " <master> <input path> <output path>");
+            System.exit(-1);
+        }
+        UserJourneyCreator userJourneyCreator = new UserJourneyCreator(args);
         userJourneyCreator.create();
     }
 
     private void create() {
-        JavaSparkContext javaSparkContext = new JavaSparkContext("yarn-client", "User journey creator",
+        JavaSparkContext javaSparkContext = new JavaSparkContext(masterUrl, appName,
                 "/Users/yhemanth/software/spark-0.8.1-incubating-bin-hadoop2",
                 new String[]{"target/spark-samples-1.0-SNAPSHOT-jar-with-dependencies.jar"});
 
@@ -45,7 +51,6 @@ public class UserJourneyCreator implements Serializable {
         JavaPairRDD<String, String> userJourneys = userVisitUrls.reduceByKey(new Function2<String, String, String>() {
             @Override
             public String call(String url1, String url2) throws Exception {
-                System.out.println("url1: " + url1 + ", url2: " + url2);
                 return url1 + "," + url2;
             }
         });
