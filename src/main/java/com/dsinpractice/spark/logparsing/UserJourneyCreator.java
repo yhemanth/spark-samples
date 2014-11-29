@@ -1,5 +1,6 @@
 package com.dsinpractice.spark.logparsing;
 
+import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -17,16 +18,15 @@ public class UserJourneyCreator implements Serializable {
     private String outputPath;
 
     public UserJourneyCreator(String[] args) {
-        this.masterUrl = args[0];
         this.appName = "User journey creator";
-        this.inputPath = args[1];
-        this.outputPath = args[2];
+        this.inputPath = args[0];
+        this.outputPath = args[1];
     }
 
     public static void main(String[] args) {
-        if (args.length < 3) {
+        if (args.length < 2) {
             System.out.println("Usage: java " +
-                    UserJourneyCreator.class.getName() + " <master> <input path> <output path>");
+                    UserJourneyCreator.class.getName() + " <input path> <output path>");
             System.exit(-1);
         }
         UserJourneyCreator userJourneyCreator = new UserJourneyCreator(args);
@@ -34,9 +34,8 @@ public class UserJourneyCreator implements Serializable {
     }
 
     private void create() {
-        JavaSparkContext javaSparkContext = new JavaSparkContext(masterUrl, appName,
-                "/Users/yhemanth/software/spark-0.8.1-incubating-bin-hadoop2",
-                new String[]{"target/spark-samples-1.0-SNAPSHOT-jar-with-dependencies.jar"});
+        SparkConf sparkConf = new SparkConf().setAppName(this.appName);
+        JavaSparkContext javaSparkContext = new JavaSparkContext(sparkConf);
 
         JavaRDD<String> userVisits = javaSparkContext.textFile(inputPath);
 
