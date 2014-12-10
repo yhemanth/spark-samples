@@ -1,0 +1,10 @@
+A for apple
+B for bat
+C for cattle
+D for dog
+E for elephant
+F for fish
+G for goat
+H for hen
+I for ink
+J for jug
