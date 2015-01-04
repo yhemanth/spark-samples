@@ -12,6 +12,7 @@ public class SetOperations implements Serializable {
         if (args.length<4) {
             System.out.println("Usage: " + SetOperations.class.getName() +
                     " <inpath1> <inpath2> <outpath> <operation = union | intersection>");
+            System.exit(-1);
         }
         SetOperations setOperations = new SetOperations();
         setOperations.run(args);
