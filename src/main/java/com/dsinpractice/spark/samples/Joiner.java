@@ -4,10 +4,15 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.Function;
+import org.apache.spark.api.java.function.Function2;
+import org.apache.spark.api.java.function.PairFlatMapFunction;
 import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Joiner implements Serializable {
 
@@ -29,13 +34,52 @@ public class Joiner implements Serializable {
         JavaRDD<String> languageFile = javaSparkContext.textFile(args[1]);
         JavaPairRDD<String, String> languages = selectLanguages(languageFile);
         if (args[3].equals("join")) {
-            JavaPairRDD<String, Tuple2<String, String>> countryLanguages = cities.join(languages);
+            JavaPairRDD<String, Tuple2<String, String>> cityDetails = cities.join(languages);
+            JavaPairRDD<String, String> countryLanguages = languagesByCountry(cityDetails);
             countryLanguages.saveAsTextFile(args[2]);
         } else if (args[3].equals("cogroup")) {
-            JavaPairRDD<String, Tuple2<Iterable<String>, Iterable<String>>> countryLanguages
+            JavaPairRDD<String, Tuple2<Iterable<String>, Iterable<String>>> cityDetails
                     = cities.cogroup(languages);
+            JavaPairRDD<String, String> countryLanguages = cogroupedLanguagesByCountry(cityDetails);
             countryLanguages.saveAsTextFile(args[2]);
         }
+    }
+
+    private JavaPairRDD<String, String> cogroupedLanguagesByCountry(
+            JavaPairRDD<String, Tuple2<Iterable<String>, Iterable<String>>> cityDetails) {
+        return cityDetails.flatMapToPair(
+                new PairFlatMapFunction<Tuple2<String, Tuple2<Iterable<String>, Iterable<String>>>, String, String>() {
+            @Override
+            public Iterable<Tuple2<String, String>> call(
+                    Tuple2<String, Tuple2<Iterable<String>, Iterable<String>>> cityDetail) throws Exception {
+                Tuple2<Iterable<String>, Iterable<String>> countryLanguagesList = cityDetail._2();
+                String country = countryLanguagesList._1().iterator().next();
+                Iterable<String> languages = countryLanguagesList._2();
+                List<Tuple2<String, String>> countryLanguageTuples = new ArrayList<Tuple2<String, String>>();
+                for (String language : languages) {
+                    countryLanguageTuples.add(new Tuple2<String, String>(country, language));
+                }
+                return countryLanguageTuples;
+            }
+        }).reduceByKey(concat());
+    }
+
+    private JavaPairRDD<String, String> languagesByCountry(JavaPairRDD<String, Tuple2<String, String>> cityDetails) {
+        return cityDetails.mapToPair(new PairFunction<Tuple2<String, Tuple2<String, String>>, String, String>() {
+            @Override
+            public Tuple2<String, String> call(Tuple2<String, Tuple2<String, String>> countryLanguage) throws Exception {
+                return countryLanguage._2();
+            }
+        }).reduceByKey(concat());
+    }
+
+    private Function2<String, String, String> concat() {
+        return new Function2<String, String, String>() {
+            @Override
+            public String call(String s1, String s2) throws Exception {
+                return s1 + "," + s2;
+            }
+        };
     }
 
     private JavaPairRDD<String, String> selectLanguages(JavaRDD<String> languageFile) {
