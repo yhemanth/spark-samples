@@ -1,0 +1,11 @@
+delhi,hindi
+delhi,urdu
+calcutta,bengali
+mumbai,hindi
+mumbai,urdu
+mumbai,marathi
+chennai,tamil
+colombo,sinhalese
+kandy,sinhalese
+kandy,tamil
+jaffna,tamil
