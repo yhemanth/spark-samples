@@ -12,7 +12,7 @@ public class Persistence implements Serializable {
     public static void main(String[] args) throws InterruptedException {
         if (args.length < 2) {
             System.out.println("Usage: " + Persistence.class.getName() + " <input path> " +
-                    "<persistence level=MEMORY|DISK|BOTH>");
+                    "<persistence level=MEMORY|DISK|BOTH|NONE>");
             System.exit(-1);
         }
         Persistence persistence = new Persistence();
@@ -35,8 +35,10 @@ public class Persistence implements Serializable {
         } else if (args[1].equals("BOTH")) {
             lines.persist(StorageLevel.MEMORY_AND_DISK());
         } else {
-            System.out.println("Not a valid persistence option");
+            System.out.println("Not persisting");
         }
-        lines.collect();
+        System.out.println("Count #1: " + lines.count());
+        // try again to see if it is faster due to cache
+        System.out.println("Count #2: " + lines.count());
     }
 }
