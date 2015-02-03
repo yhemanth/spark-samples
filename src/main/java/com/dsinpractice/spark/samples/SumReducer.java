@@ -28,24 +28,32 @@ public class SumReducer implements Serializable {
         SparkConf aggregatorConf = new SparkConf().setAppName("Sum Aggregator");
         JavaSparkContext javaSparkContext = new JavaSparkContext(aggregatorConf);
         JavaRDD<String> lines = javaSparkContext.textFile(args[0]);
+        JavaPairRDD<String, Integer> finalCounts = countWords(lines);
+        finalCounts.saveAsTextFile(args[1]);
+    }
+
+    public JavaPairRDD<String, Integer> countWords(JavaRDD<String> lines) {
         JavaPairRDD<String, Integer> wordCounts =
-                lines.flatMapToPair(new PairFlatMapFunction<String, String, Integer>() {
-            @Override
-            public Iterable<Tuple2<String, Integer>> call(String line) throws Exception {
-                List<Tuple2<String, Integer>> wordCounts = new ArrayList<Tuple2<String, Integer>>();
-                String[] words = line.split(" ");
-                for (String word : words) {
-                    wordCounts.add(new Tuple2<String, Integer>(word, 1));
-                }
-                return wordCounts;
-            }
-        });
-        JavaPairRDD<String, Integer> finalCounts = wordCounts.reduceByKey(new Function2<Integer, Integer, Integer>() {
+                lines.flatMapToPair(new LineToWordCountPair());
+        return wordCounts.reduceByKey(new Function2<Integer, Integer, Integer>() {
             @Override
             public Integer call(Integer i1, Integer i2) throws Exception {
                 return i1 + i2;
             }
         });
-        finalCounts.saveAsTextFile(args[1]);
+    }
+
+    // Implement this separately to allow testing via JUnit.
+    static class LineToWordCountPair implements PairFlatMapFunction<String, String, Integer> {
+
+        @Override
+        public Iterable<Tuple2<String, Integer>> call(String line) throws Exception {
+            List<Tuple2<String, Integer>> wordCounts = new ArrayList<Tuple2<String, Integer>>();
+            String[] words = line.split(" ");
+            for (String word : words) {
+                wordCounts.add(new Tuple2<String, Integer>(word, 1));
+            }
+            return wordCounts;
+        }
     }
 }
