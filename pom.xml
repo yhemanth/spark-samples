@@ -41,7 +41,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass></mainClass>
+                            <mainClass>com.dsinpractice.spark.SparkSampleDriver</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
