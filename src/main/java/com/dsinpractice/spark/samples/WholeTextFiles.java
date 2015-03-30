@@ -15,6 +15,7 @@ public class WholeTextFiles implements Serializable {
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("Usage: " + WholeTextFiles.class.getName() + " <path with small files>");
+            System.out.println("Input files to use at resources/whole-text-files");
             System.exit(-1);
         }
         WholeTextFiles wholeTextFiles = new WholeTextFiles();

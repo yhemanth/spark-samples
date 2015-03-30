@@ -19,7 +19,8 @@ public class Joiner implements Serializable {
     public static void main(String[] args) {
         if (args.length < 4) {
             System.out.println("Usage: " + Joiner.class.getName() +
-                    " <city-file> <language-file> <output> <operation = join | cogroup");
+                    " <city-file> <language-file> <output> <operation = join | cogroup>");
+            System.out.println("Input files to use at resources/join-cogroup.");
             System.exit(-1);
         }
         Joiner joiner = new Joiner();

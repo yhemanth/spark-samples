@@ -11,6 +11,7 @@ public class Sampler implements Serializable {
     public static void main(String[] args) {
         if (args.length < 3) {
             System.out.println("Usage: " + Sampler.class.getName() + " <inpath> <outpath> <samplesize>");
+            System.out.println("Input files to use at resources/common-text-data.");
             System.exit(-1);
         }
         Sampler sampler = new Sampler();

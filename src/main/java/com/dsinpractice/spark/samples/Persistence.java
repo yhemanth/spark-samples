@@ -13,6 +13,7 @@ public class Persistence implements Serializable {
         if (args.length < 2) {
             System.out.println("Usage: " + Persistence.class.getName() + " <input path> " +
                     "<persistence level=MEMORY|DISK|BOTH|NONE>");
+            System.out.println("Input files to use at resources/common-text-data.");
             System.exit(-1);
         }
         Persistence persistence = new Persistence();
