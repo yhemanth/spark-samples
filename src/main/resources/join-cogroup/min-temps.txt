@@ -1,0 +1,11 @@
+delhi,1.2
+calcutta,12.5
+delhi,29.1
+mumbai,17.2
+mumbai,10.2
+chennai,29.8
+mumbai,20.1
+chennai,19.1
+calcutta,25.3
+calcutta,20.9
+delhi,12.7

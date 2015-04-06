@@ -1,9 +1,0 @@
-india,delhi
-india,calcutta
-india,mumbai
-india,chennai
-sri lanka,colombo
-sri lanka,kandy
-sri lanka,jaffna
-pakistan,rawalpindi
-pakistan,islamabad
