@@ -21,6 +21,8 @@ public class SparkSampleDriver {
                 "Demonstrates API related to persisting RDDs in memory / disk etc.");
         programDriver.addClass("joiner", Joiner.class,
                 "Demonstrates APIs related to joining / co-grouping RDDs.");
+        programDriver.addClass("piped-command", PipedCommand.class,
+                "Demonstrates API that passes each record in input to an external script via the pipe API.");
         programDriver.driver(args);
     }
 }
