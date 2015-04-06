@@ -28,6 +28,8 @@ public class SparkSampleDriver {
         programDriver.addClass("accumulators", Accumulators.class,
                 "Demonstrates API that can be used to count some metrics across tasks using " +
                         "special variables called accumulators.");
+        programDriver.addClass("sum-reducer", SumReducer.class,
+                "Demonstrates how unit testable Spark code can be written.");
         programDriver.driver(args);
     }
 }

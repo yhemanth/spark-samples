@@ -17,6 +17,7 @@ public class SumReducer implements Serializable {
     public static void main(String[] args) {
         if (args.length < 2) {
             System.out.println("Usage: java " + SumReducer.class.getName() + " <input> <output>");
+            System.out.println("Input files to use are at resources/common-text-data.");
             System.exit(-1);
         }
 
