@@ -23,6 +23,11 @@ public class SparkSampleDriver {
                 "Demonstrates APIs related to joining / co-grouping RDDs.");
         programDriver.addClass("piped-command", PipedCommand.class,
                 "Demonstrates API that passes each record in input to an external script via the pipe API.");
+        programDriver.addClass("broadcast-vars", BroadcastVars.class,
+                "Demonstrates API that can be used to broadcast a variable to Spark tasks.");
+        programDriver.addClass("accumulators", Accumulators.class,
+                "Demonstrates API that can be used to count some metrics across tasks using " +
+                        "special variables called accumulators.");
         programDriver.driver(args);
     }
 }

@@ -17,6 +17,7 @@ public class BroadcastVars implements Serializable {
     public static void main(String[] args) {
         if (args.length < 2) {
             System.out.println("Usage: " + BroadcastVars.class.getName() + " <input path> <output path>");
+            System.out.println("Input files to use are at resources/common-text-data.");
             System.exit(-1);
         }
         BroadcastVars broadcastVars = new BroadcastVars();
