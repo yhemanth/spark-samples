@@ -1,4 +1,4 @@
-package com.dsinpractice.spark.samples;
+package com.dsinpractice.spark.samples.core;
 
 import com.google.common.collect.*;
 import org.apache.spark.SparkConf;

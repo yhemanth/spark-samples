@@ -1,6 +1,6 @@
 package com.dsinpractice.spark;
 
-import com.dsinpractice.spark.samples.*;
+import com.dsinpractice.spark.samples.core.*;
 import org.apache.hadoop.util.ProgramDriver;
 
 public class SparkSampleDriver {

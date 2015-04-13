@@ -1,4 +1,4 @@
-package com.dsinpractice.spark.samples;
+package com.dsinpractice.spark.samples.core;
 
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
