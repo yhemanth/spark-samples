@@ -9,9 +9,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
-import org.apache.spark.mllib.linalg.SparseVector;
-import org.apache.spark.mllib.linalg.Vector;
-import org.apache.spark.mllib.linalg.Vectors;
+import org.apache.spark.mllib.linalg.*;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.util.MLUtils;
 import scala.Tuple2;
@@ -36,7 +34,7 @@ public class MLDataTypes implements Serializable {
     }
 
     private static void printUsage() {
-        System.out.println("Usage: " + MLDataTypes.class.getName() + " <dense | sparse | libsvm> [input-data]");
+        System.out.println("Usage: " + MLDataTypes.class.getName() + " <dense | sparse | libsvm | matrix> [input-data]");
         System.out.printf("Input files to use are at resources/libsvm-sample");
         System.exit(-1);
     }
@@ -46,9 +44,21 @@ public class MLDataTypes implements Serializable {
             makeDenseVector();
         } else if (args[0].equalsIgnoreCase("sparse")) {
             makeSparseVector();
-        } else {
+        } else if (args[0].equalsIgnoreCase("libsvm")) {
             loadSVMData(args);
+        } else if (args[0].equalsIgnoreCase("matrix")) {
+            makeLocalMatrix();
         }
+    }
+
+    private void makeLocalMatrix() {
+        Matrix matrix = Matrices.dense(3, 2, new double[]{1.0, 2.0, 3.0, 2.0, 4.0, 6.0});
+        System.out.println(matrix);
+        System.out.println("Row count: " + matrix.numRows() + ", Column count: " + matrix.numCols());
+        System.out.println();
+        DenseMatrix transpose = (DenseMatrix) matrix.transpose();
+        DenseMatrix result = matrix.multiply(transpose);
+        System.out.println(result);
     }
 
     private void loadSVMData(String[] args) {
