@@ -1,7 +1,7 @@
 package com.dsinpractice.spark;
 
 import com.dsinpractice.spark.samples.core.*;
-import com.dsinpractice.spark.samples.mllib.LocalVector;
+import com.dsinpractice.spark.samples.mllib.MLDataTypes;
 import org.apache.hadoop.util.ProgramDriver;
 
 public class SparkSampleDriver {
@@ -31,7 +31,7 @@ public class SparkSampleDriver {
                         "special variables called accumulators.");
         programDriver.addClass("sum-reducer", SumReducer.class,
                 "Demonstrates how unit testable Spark code can be written.");
-        programDriver.addClass("local-vector", LocalVector.class,
+        programDriver.addClass("ml-data-types", MLDataTypes.class,
                 "Demonstrates the local vector data type and some APIs on it.");
         programDriver.driver(args);
     }
