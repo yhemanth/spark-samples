@@ -1,8 +1,11 @@
 package com.dsinpractice.spark;
 
 import com.dsinpractice.spark.samples.core.*;
-import com.dsinpractice.spark.samples.mllib.MLDataTypes;
+import com.dsinpractice.spark.samples.mllib.LabeledPointDataType;
+import com.dsinpractice.spark.samples.mllib.MatrixDataType;
+import com.dsinpractice.spark.samples.mllib.VectorDataType;
 import org.apache.hadoop.util.ProgramDriver;
+import org.apache.spark.mllib.linalg.Matrix;
 
 public class SparkSampleDriver {
 
@@ -31,8 +34,12 @@ public class SparkSampleDriver {
                         "special variables called accumulators.");
         programDriver.addClass("sum-reducer", SumReducer.class,
                 "Demonstrates how unit testable Spark code can be written.");
-        programDriver.addClass("ml-data-types", MLDataTypes.class,
+        programDriver.addClass("vector-data-types", VectorDataType.class,
                 "Demonstrates the local vector data type and some APIs on it.");
+        programDriver.addClass("labeled-point-data-types", LabeledPointDataType.class,
+                "Demonstrates loading LabeledPoint data with a LibSVM file, and some APIs on loaded data types.");
+        programDriver.addClass("matrix-data-types", MatrixDataType.class,
+                "Demonstrates defining and using matrix data type.");
         programDriver.driver(args);
     }
 }
