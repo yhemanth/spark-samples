@@ -3,6 +3,7 @@ package com.dsinpractice.spark;
 import com.dsinpractice.spark.samples.core.*;
 import com.dsinpractice.spark.samples.mllib.LabeledPointDataType;
 import com.dsinpractice.spark.samples.mllib.MatrixDataType;
+import com.dsinpractice.spark.samples.mllib.Summarizer;
 import com.dsinpractice.spark.samples.mllib.VectorDataType;
 import org.apache.hadoop.util.ProgramDriver;
 import org.apache.spark.mllib.linalg.Matrix;
@@ -40,6 +41,8 @@ public class SparkSampleDriver {
                 "Demonstrates loading LabeledPoint data with a LibSVM file, and some APIs on loaded data types.");
         programDriver.addClass("matrix-data-types", MatrixDataType.class,
                 "Demonstrates defining and using matrix data type.");
+        programDriver.addClass("summarizer", Summarizer.class,
+                "Demonstrates summarizing numeric columns.");
         programDriver.driver(args);
     }
 }
