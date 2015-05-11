@@ -1,10 +1,7 @@
 package com.dsinpractice.spark;
 
 import com.dsinpractice.spark.samples.core.*;
-import com.dsinpractice.spark.samples.mllib.LabeledPointDataType;
-import com.dsinpractice.spark.samples.mllib.MatrixDataType;
-import com.dsinpractice.spark.samples.mllib.Summarizer;
-import com.dsinpractice.spark.samples.mllib.VectorDataType;
+import com.dsinpractice.spark.samples.mllib.*;
 import org.apache.hadoop.util.ProgramDriver;
 import org.apache.spark.mllib.linalg.Matrix;
 
@@ -43,6 +40,8 @@ public class SparkSampleDriver {
                 "Demonstrates defining and using matrix data type.");
         programDriver.addClass("summarizer", Summarizer.class,
                 "Demonstrates summarizing numeric columns.");
+        programDriver.addClass("correlator", Correlator.class,
+                "Demonstrates correlating columns.");
         programDriver.driver(args);
     }
 }

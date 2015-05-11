@@ -16,6 +16,10 @@ import java.util.ArrayList;
 
 public class Summarizer implements Serializable {
 
+    public static final int MAX_TEMPARATURE_INDEX = 1;
+    public static final int MIN_TEMPARATURE_INDEX = 2;
+    public static final int RAINFALL_INDEX = 3;
+    public static final int MAX_WIND_GUSH_INDEX = 7;
     private String[] args;
 
     public Summarizer(String[] args) {
@@ -43,10 +47,10 @@ public class Summarizer implements Serializable {
                 ArrayList<Integer> indices = new ArrayList<Integer>();
                 ArrayList<Double> values = new ArrayList<Double>();
                 int currentIndex = 0;
-                doubleValue(currentIndex++, temparatureData[1], indices, values);
-                doubleValue(currentIndex++, temparatureData[2], indices, values);
-                doubleValue(currentIndex++, temparatureData[3], indices, values);
-                doubleValue(currentIndex++, temparatureData[7], indices, values);
+                doubleValue(currentIndex++, temparatureData[MAX_TEMPARATURE_INDEX], indices, values);
+                doubleValue(currentIndex++, temparatureData[MIN_TEMPARATURE_INDEX], indices, values);
+                doubleValue(currentIndex++, temparatureData[RAINFALL_INDEX], indices, values);
+                doubleValue(currentIndex++, temparatureData[MAX_WIND_GUSH_INDEX], indices, values);
 
                 return Vectors.sparse(4, Ints.toArray(indices), Doubles.toArray(values));
             }
