@@ -22,7 +22,8 @@ public class LabeledPointDataType implements Serializable {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Usage: " + LabeledPointDataType.class.getName() + " <input-data>");
-            System.out.printf("Input files to use are at resources/libsvm-sample");
+            System.out.println("Input files to use are at resources/libsvm-sample. " +
+                    "Source of file: http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/vehicle.scale");
             System.exit(-1);
         }
         LabeledPointDataType labeledPointDataType = new LabeledPointDataType(args);
